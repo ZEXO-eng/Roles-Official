@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مُكمل استبيانات جرد المسؤولين</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#050816;
+  --panel:rgba(13,20,34,.72);
+  --panel2:rgba(17,26,43,.62);
+  --line:rgba(148,163,184,.16);
+  --text:#f8fafc;
+  --muted:#8fa0b8;
+  --blue:#3b82f6;
+  --blue2:#2563eb;
+  --cyan:#06b6d4;
+  --orange:#f97316;
+  --green:#10b981;
+  --red:#dc2626;
+  --purple:#a855f7;
+}
+
+html,
+body{
+  margin:0;
+  min-height:100%;
+  font-family:Tahoma,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%,#2563eb35,transparent 30%),
+    radial-gradient(circle at 88% 18%,#06b6d425,transparent 27%),
+    radial-gradient(circle at 50% 100%,#6366f120,transparent 35%),
+    linear-gradient(135deg,#050816,#0a1020 55%,#060b16);
+  color:var(--text);
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  border-radius:50%;
+  filter:blur(85px);
+  pointer-events:none;
+  opacity:.2;
+  z-index:0;
+}
+
+body::before{
+  width:300px;
+  height:300px;
+  background:#2563eb;
+  top:-120px;
+  right:-90px;
+}
+
+body::after{
+  width:260px;
+  height:260px;
+  background:#06b6d4;
+  bottom:-120px;
+  left:-80px;
+}
+
+.wrap{
+  width:min(1180px,calc(100% - 36px));
+  margin:0 auto;
+  padding:26px 0 24px;
+  position:relative;
+  z-index:1;
+}
+
+h1{
+  margin:0 0 7px;
+  font-size:clamp(30px,5vw,46px);
+  letter-spacing:-1px;
+}
+
+.title-text{
+  background:linear-gradient(90deg,#93c5fd,#fff,#67e8f9);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+}
+
+.emoji{
+  font-family:
+    "Segoe UI Emoji",
+    "Apple Color Emoji",
+    "Noto Color Emoji",
+    sans-serif;
+  color:initial !important;
+  -webkit-text-fill-color:initial !important;
+  background:none !important;
+  -webkit-background-clip:initial !important;
+  background-clip:initial !important;
+  display:inline-block;
+}
+
+.sub{
+  color:var(--muted);
+  margin-bottom:14px;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.wrap > h1,
+.wrap > .sub{
+  text-align:center;
+}
+
+.new-members-card{
+  width:100%;
+  margin-bottom:12px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.card{
+  position:relative;
+  background:
+    linear-gradient(145deg,rgba(17,27,48,.82),rgba(8,15,29,.68));
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:16px;
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.4),
+    inset 0 1px 0 rgba(255,255,255,.045);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  width:190px;
+  height:190px;
+  top:-90px;
+  right:-70px;
+  border-radius:50%;
+  background:#2563eb18;
+  filter:blur(35px);
+  pointer-events:none;
+}
+
+.card label{
+  display:block;
+  font-weight:800;
+  margin-bottom:8px;
+  font-size:13px;
+  color:#cbd5e1;
+  position:relative;
+  z-index:1;
+}
+
+textarea{
+  width:100%;
+  min-height:420px;
+  resize:vertical;
+  background:
+    linear-gradient(145deg,rgba(3,9,22,.82),rgba(10,18,34,.72));
+  color:#f8fafc;
+  border:1px solid rgba(148,163,184,.15);
+  border-radius:14px;
+  padding:13px;
+  line-height:1.8;
+  font-family:Consolas,Tahoma,monospace;
+  font-size:14px;
+  direction:rtl;
+  outline:none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 10px 30px rgba(0,0,0,.18);
+  transition:.25s ease;
+  position:relative;
+  z-index:1;
+}
+
+textarea::placeholder{
+  color:#64748b;
+}
+
+textarea:focus{
+  border-color:rgba(59,130,246,.65);
+  box-shadow:
+    0 0 0 3px rgba(59,130,246,.09),
+    0 15px 40px rgba(0,0,0,.25);
+}
+
+.buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:9px;
+}
+
+button{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  padding:10px 15px;
+  font-weight:700;
+  cursor:pointer;
+  color:white;
+  transition:
+    transform .22s cubic-bezier(.2,.8,.2,1),
+    filter .22s ease,
+    box-shadow .22s ease;
+  font-family:Tahoma,Arial,sans-serif;
+}
+
+button::after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  left:var(--ripple-x,50%);
+  top:var(--ripple-y,50%);
+  transform:translate(-50%,-50%) scale(0);
+  border-radius:50%;
+  background:rgba(255,255,255,.32);
+  pointer-events:none;
+  z-index:-1;
+}
+
+button.ripple::after{
+  animation:buttonRipple .55s ease-out;
+}
+
+@keyframes buttonRipple{
+  0%{
+    transform:translate(-50%,-50%) scale(0);
+    opacity:.7;
+  }
+
+  100%{
+    transform:translate(-50%,-50%) scale(16);
+    opacity:0;
+  }
+}
+
+button:hover{
+  transform:translateY(-2px) scale(1.015);
+  filter:brightness(1.1);
+}
+
+button:active{
+  transform:translateY(0) scale(.97);
+  filter:brightness(1.04);
+}
+
+button:focus-visible{
+  outline:none;
+  box-shadow:
+    0 0 0 3px rgba(96,165,250,.18),
+    0 0 24px rgba(59,130,246,.28);
+}
+
+button .emoji{
+  font-family:
+    "Segoe UI Emoji",
+    "Apple Color Emoji",
+    "Noto Color Emoji",
+    sans-serif;
+}
+
+.paste{
+  --glow:#10b981;
+  background:linear-gradient(135deg,#059669,#047857);
+  box-shadow:0 10px 28px rgba(5,150,105,.18);
+}
+
+.clear{
+  --glow:#ef4444;
+  background:rgba(220,38,38,.82);
+  box-shadow:0 10px 28px rgba(220,38,38,.13);
+}
+
+.copy{
+  --glow:#a855f7;
+  background:linear-gradient(135deg,#7c3aed,#6d28d9);
+  box-shadow:0 10px 28px rgba(124,58,237,.18);
+}
+
+.main{
+  --glow:#f97316;
+  background:linear-gradient(135deg,#f97316,#ea580c);
+  font-size:15px;
+  box-shadow:0 10px 30px rgba(249,115,22,.2);
+}
+
+.status{
+  margin-top:8px;
+  min-height:20px;
+  color:#93c5fd;
+  font-size:13px;
+  line-height:1.7;
+  white-space:pre-line;
+}
+
+.result{
+  min-height:400px;
+  margin-top:12px;
+}
+
+.result textarea{
+  min-height:520px;
+}
+
+.note{
+  margin-top:11px;
+  padding:10px 12px;
+  border-radius:11px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(148,163,184,.11);
+  font-size:12px;
+  color:#94a3b8;
+  line-height:1.9;
+}
+
+@media(max-width:850px){
+
+  .grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .wrap{
+    width:min(100% - 24px,620px);
+    padding-top:20px;
+  }
+
+  h1{
+    font-size:30px;
+  }
+
+  .card{
+    padding:13px;
+    border-radius:17px;
+  }
+
+  .buttons{
+    flex-direction:column;
+  }
+
+  button{
+    width:100%;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <h1>
+    <span class="emoji">📋</span>
+    <span class="title-text">مُكمل استبيانات جرد المسؤولين</span>
+  </h1>
+
+  <div class="sub">
+    يعالج استبيانات الأعضاء والمسؤولين تلقائياً، ويطابق تقييم المسؤوليات بالمنشن.
+  </div>
+
+
+  <!-- =====================================================
+       الأعضاء الجدد
+  ====================================================== -->
+
+  <div class="card new-members-card">
+
+    <label>الأعضاء الجدد</label>
+
+    <textarea
+      id="newMembers"
+      placeholder="ضع منشنات الأعضاء الجدد هنا...
+مثال:
+<@123456789>
+<@987654321>"
+    ></textarea>
+
+    <div class="buttons">
+
+      <button
+        class="paste"
+        onclick="pasteInto('newMembers','statusNew')"
+      >
+        <span class="emoji">📋</span>
+        لصق المنشنات هنا
+      </button>
+
+      <button
+        class="clear"
+        onclick="clearOne('newMembers')"
+      >
+        مسح
+      </button>
+
+    </div>
+
+    <div id="statusNew" class="status"></div>
+
+  </div>
+
+
+  <!-- =====================================================
+       استبيانات الأعضاء والمسؤولين + تقييم المسؤوليات
+  ====================================================== -->
+
+  <div class="grid">
+
+    <div class="card">
+
+      <label>استبيانات الأعضاء والمسؤولين</label>
+
+      <textarea
+        id="mainSurveys"
+        placeholder="ضع جميع الاستبيانات الأساسية هنا.
+
+يمكنك وضع استبيان عضو أو مسؤول أو الاثنين معاً.
+
+مثال:
+
+الايدي : <@123456789>
+تغيير الاسم : 15 =
+اعطاء الرتب : 20 =
+اجمالي التكتات :
+اجمالي البوينتات :
+الرتبة الادارية : marshal
+التقييم النهائي :
+
+
+الايدي : <@987654321>
+تغيير الاسم : 10 =
+اعطاء الرتب : 10 =
+اجمالي التكتات :
+اجمالي البوينتات :
+تقيم المسؤوليات :
+التقييم :
+المعدل :
+الرتبة الادارية :
+التقيم النهائي :"
+      ></textarea>
+
+      <div class="buttons">
+
+        <button
+          class="paste"
+          onclick="pasteInto('mainSurveys','statusMain')"
+        >
+          <span class="emoji">📋</span>
+          لصق الاستبيانات هنا
+        </button>
+
+        <button
+          class="clear"
+          onclick="clearOne('mainSurveys')"
+        >
+          مسح
+        </button>
+
+      </div>
+
+      <div id="statusMain" class="status"></div>
+
+    </div>
+
+
+    <div class="card">
+
+      <label>استبيان تقييم المسؤوليات</label>
+
+      <textarea
+        id="responsibilitySurveys"
+        placeholder="ضع جميع استبيانات تقييم المسؤوليات هنا...
+يمكنك وضع عشرات أو مئات الاستبيانات.
+
+مثال:
+
+منشن الشخص : <@123456789>
+
+التقييم النهائي : ممتاز
+
+
+منشن الشخص : <@987654321>
+
+التقييم النهائي : جيد جداً"
+      ></textarea>
+
+      <div class="buttons">
+
+        <button
+          class="paste"
+          onclick="pasteInto('responsibilitySurveys','statusResponsibilities')"
+        >
+          <span class="emoji">📋</span>
+          لصق الاستبيانات هنا
+        </button>
+
+        <button
+          class="clear"
+          onclick="clearOne('responsibilitySurveys')"
+        >
+          مسح
+        </button>
+
+      </div>
+
+      <div id="statusResponsibilities" class="status"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       النتيجة
+  ====================================================== -->
+
+  <div class="card result">
+
+    <label>النتيجة</label>
+
+    <textarea
+      id="output"
+      readonly
+      placeholder="ستظهر النتائج هنا بالترتيب..."
+    ></textarea>
+
+    <div class="buttons">
+
+      <button
+        class="main"
+        onclick="completeSurvey()"
+      >
+        <span class="emoji">✅</span>
+        إكمال الاستبيانات
+      </button>
+
+      <button
+        class="copy"
+        onclick="copyResult()"
+      >
+        <span class="emoji">📄</span>
+        نسخ النتيجة
+      </button>
+
+      <button
+        class="clear"
+        onclick="clearAll()"
+      >
+        <span class="emoji">🗑️</span>
+        مسح الكل
+      </button>
+
+    </div>
+
+    <div id="status3" class="status"></div>
+
+    <div
+      id="pointsReason"
+      class="note"
+    >
+      ستظهر تفاصيل الحساب والتقييم هنا بعد إكمال الاستبيانات.
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   اللصق
+========================================================= */
+
+async function pasteInto(id,statusId){
+
+  const box=document.getElementById(id);
+  const status=document.getElementById(statusId);
+
+  try{
+
+    const text=await navigator.clipboard.readText();
+
+    if(!text){
+
+      status.textContent='⚠️ الحافظة فارغة.';
+      return;
+
+    }
+
+    box.value=text;
+
+    box.dispatchEvent(
+      new Event('input',{bubbles:true})
+    );
+
+    status.textContent='✅ تم اللصق من الحافظة.';
+
+  }catch(e){
+
+    box.focus();
+
+    status.textContent=
+      '⚠️ المتصفح منع القراءة المباشرة للحافظة. اضغط Ctrl+V هنا.';
+
+  }
+}
+
+
+/* =========================================================
+   مسح خانة
+========================================================= */
+
+function clearOne(id){
+
+  document.getElementById(id).value='';
+
+}
+
+
+/* =========================================================
+   مسح الكل
+========================================================= */
+
+function clearAll(){
+
+  document.getElementById('newMembers').value='';
+  document.getElementById('responsibilitySurveys').value='';
+  document.getElementById('mainSurveys').value='';
+  document.getElementById('output').value='';
+
+  document.getElementById('statusNew').textContent='';
+  document.getElementById('statusResponsibilities').textContent='';
+  document.getElementById('statusMain').textContent='';
+  document.getElementById('status3').textContent='';
+
+  document.getElementById('pointsReason').textContent=
+    'ستظهر تفاصيل الحساب والتقييم هنا بعد إكمال الاستبيانات.';
+
+}
+
+
+/* =========================================================
+   نسخ النتيجة
+========================================================= */
+
+async function copyResult(){
+
+  const output=
+    document.getElementById('output');
+
+  const text=output.value;
+
+  if(!text)
+    return;
+
+  try{
+
+    await navigator.clipboard.writeText(text);
+
+    document.getElementById('status3').textContent=
+      '✅ تم نسخ النتيجة.';
+
+  }catch(e){
+
+    output.focus();
+    output.select();
+
+    document.execCommand('copy');
+
+    document.getElementById('status3').textContent=
+      '✅ تم نسخ النتيجة.';
+
+  }
+}
+
+
+/* =========================================================
+   تطبيع النص
+========================================================= */
+
+function normalize(text){
+
+  return String(text ?? '')
+    .replace(/[٠-٩]/g,function(d){
+
+      return String(
+        '٠١٢٣٤٥٦٧٨٩'.indexOf(d)
+      );
+
+    })
+    .replace(/\uFE0F/g,'')
+    .replace(/\r/g,'')
+    .trim();
+
+}
+
+
+/* =========================================================
+   استخراج رقم
+========================================================= */
+
+function num(value){
+
+  const normalized=
+    normalize(value);
+
+  const match=
+    normalized.match(
+      /-?\d+(?:[.,]\d+)?/
+    );
+
+  if(!match)
+    return 0;
+
+  return parseFloat(
+    match[0].replace(',','.')
+  );
+
+}
+
+
+/* =========================================================
+   استخراج ID من المنشن
+========================================================= */
+
+function extractMentionId(value){
+
+  if(!value)
+    return '';
+
+  const match=
+    String(value).match(
+      /<@!?\s*(\d+)\s*>/
+    );
+
+  return match
+    ? match[1]
+    : '';
+
+}
+
+
+/* =========================================================
+   استخراج كل IDs
+========================================================= */
+
+function getMentionIds(text){
+
+  if(!text)
+    return [];
+
+  const matches=
+    String(text).match(
+      /<@!?\s*(\d+)\s*>/g
+    );
+
+  if(!matches)
+    return [];
+
+  return matches
+    .map(function(item){
+
+      return extractMentionId(item);
+
+    })
+    .filter(Boolean);
+
+}
+
+
+/* =========================================================
+   البحث عن سطر يبدأ بالحقل
+========================================================= */
+
+function getFieldLine(text,labels){
+
+  const lines=
+    String(text || '')
+      .split(/\r?\n/);
+
+  for(const rawLine of lines){
+
+    const line=rawLine.trim();
+
+    const normalizedLine=
+      normalize(line);
+
+    for(const label of labels){
+
+      const normalizedLabel=
+        normalize(label);
+
+      if(
+        normalizedLine.startsWith(
+          normalizedLabel
+        )
+      ){
+
+        const colonIndex=
+          line.indexOf(':');
+
+        if(colonIndex===-1)
+          return '';
+
+        return line
+          .slice(colonIndex+1)
+          .trim();
+
+      }
+
+    }
+
+  }
+
+  return '';
+
+}
+
+
+/* =========================================================
+   تحديد بداية الاستبيان الأساسي
+========================================================= */
+
+function isMainSurveyStart(line){
+
+  return normalize(line)
+    .startsWith('الايدي :');
+
+}
+
+
+/* =========================================================
+   تحديد نهاية الاستبيان الأساسي
+========================================================= */
+
+function isMainSurveyEnd(line){
+
+  const n=
+    normalize(line);
+
+  return(
+    n.startsWith('التقييم النهائي :') ||
+    n.startsWith('التقيم النهائي :')
+  );
+
+}
+
+
+/* =========================================================
+   تحديد بداية استبيان المسؤوليات
+========================================================= */
+
+function isResponsibilityStart(line){
+
+  return normalize(line)
+    .startsWith('منشن الشخص :');
+
+}
+
+
+/* =========================================================
+   تحديد نهاية استبيان المسؤوليات
+========================================================= */
+
+function isResponsibilityEnd(line){
+
+  const n=
+    normalize(line);
+
+  return(
+    n.startsWith('التقييم النهائي :') ||
+    n.startsWith('التقيم النهائي :')
+  );
+
+}
+
+
+/* =========================================================
+   تقسيم الاستبيانات الأساسية
+========================================================= */
+
+function splitMainSurveys(text){
+
+  const lines=
+    String(text || '')
+      .split(/\r?\n/);
+
+  const surveys=[];
+  let current=[];
+  let started=false;
+
+  for(const line of lines){
+
+    if(isMainSurveyStart(line)){
+
+      if(current.length){
+
+        surveys.push(
+          current.join('\n').trim()
+        );
+
+      }
+
+      current=[line];
+      started=true;
+      continue;
+    }
+
+    if(!started)
+      continue;
+
+    current.push(line);
+
+    if(isMainSurveyEnd(line)){
+
+      surveys.push(
+        current.join('\n').trim()
+      );
+
+      current=[];
+      started=false;
+
+    }
+
+  }
+
+  if(current.length){
+
+    surveys.push(
+      current.join('\n').trim()
+    );
+
+  }
+
+  return surveys.filter(Boolean);
+
+}
+
+
+/* =========================================================
+   تقسيم استبيانات المسؤوليات
+========================================================= */
+
+function splitResponsibilitySurveys(text){
+
+  const lines=
+    String(text || '')
+      .split(/\r?\n/);
+
+  const surveys=[];
+  let current=[];
+  let started=false;
+
+  for(const line of lines){
+
+    if(isResponsibilityStart(line)){
+
+      if(current.length){
+
+        surveys.push(
+          current.join('\n').trim()
+        );
+
+      }
+
+      current=[line];
+      started=true;
+      continue;
+
+    }
+
+    if(!started)
+      continue;
+
+    current.push(line);
+
+    if(isResponsibilityEnd(line)){
+
+      surveys.push(
+        current.join('\n').trim()
+      );
+
+      current=[];
+      started=false;
+
+    }
+
+  }
+
+  if(current.length){
+
+    surveys.push(
+      current.join('\n').trim()
+    );
+
+  }
+
+  return surveys.filter(Boolean);
+
+}
+
+
+/* =========================================================
+   مطابقة استبيان المسؤوليات
+========================================================= */
+
+function buildResponsibilityMap(){
+
+  const text=
+    document
+      .getElementById('responsibilitySurveys')
+      .value;
+
+  const surveys=
+    splitResponsibilitySurveys(text);
+
+  const map={};
+
+  for(const survey of surveys){
+
+    const mention=
+      getFieldLine(
+        survey,
+        ['منشن الشخص']
+      );
+
+    const memberId=
+      extractMentionId(mention);
+
+    if(!memberId)
+      continue;
+
+    const finalRating=
+      getFieldLine(
+        survey,
+        [
+          'التقييم النهائي',
+          'التقيم النهائي'
+        ]
+      );
+
+    map[memberId]=
+      normalizeRating(finalRating);
+
+  }
+
+  return map;
+
+}
+
+
+/* =========================================================
+   تطبيع التقييم
+========================================================= */
+
+function normalizeRating(value){
+
+  const v=
+    normalize(value)
+      .replace(/\s+/g,' ');
+
+  if(!v)
+    return '';
+
+  if(
+    /ممتاز\s*جداً|ممتاز\s*جدا/.test(v)
+  )
+    return 'ممتاز جداً';
+
+  if(
+    /جيد\s*جداً|جيد\s*جدا/.test(v)
+  )
+    return 'جيد جداً';
+
+  if(/ممتاز/.test(v))
+    return 'ممتاز';
+
+  if(
+    /سيء|سيئ|سىء|سي\s*ء/.test(v)
+  )
+    return 'سيء';
+
+  if(/جديد/.test(v))
+    return 'جديد';
+
+  return value.trim();
+
+}
+
+
+/* =========================================================
+   التأكد هل العضو موجود في قائمة الأعضاء الجدد
+========================================================= */
+
+function isNewMember(memberId){
+
+  const text=
+    document
+      .getElementById('newMembers')
+      .value;
+
+  const ids=
+    getMentionIds(text);
+
+  return ids.includes(memberId);
+
+}
+
+
+/* =========================================================
+   حساب نقاط التفاعل
+========================================================= */
+
+function calculateInteractionPoints(changeName,roles){
+
+  return(
+    changeName*3 +
+    roles*5
+  );
+
+}
+
+
+/* =========================================================
+   إجمالي التكتات
+========================================================= */
+
+function calculateTickets(changeName,roles){
+
+  return(
+    changeName +
+    roles
+  );
+
+}
+
+
+/* =========================================================
+   تقييم البوينتات
+========================================================= */
+
+function getPointsRating(points){
+
+  if(points<=50)
+    return 'سيء';
+
+  if(points<=80)
+    return 'جيد جداً';
+
+  if(points<=130)
+    return 'ممتاز';
+
+  return 'ممتاز جداً';
+
+}
+
+
+/* =========================================================
+   تحويل تقييم التفاعل إلى نقاط من 6
+========================================================= */
+
+function interactionScore(rating){
+
+  const r=
+    normalizeRating(rating);
+
+  switch(r){
+
+    case 'سيء':
+      return 0;
+
+    case 'جيد جداً':
+      return 3;
+
+    case 'ممتاز':
+      return 4;
+
+    case 'ممتاز جداً':
+      return 6;
+
+    default:
+      return 0;
+
+  }
+
+}
+
+
+/* =========================================================
+   تحويل تقييم المسؤوليات إلى نقاط من 4
+========================================================= */
+
+function responsibilityScore(rating){
+
+  const r=
+    normalizeRating(rating);
+
+  switch(r){
+
+    case 'سيء':
+      return 0;
+
+    case 'جيد جداً':
+      return 1;
+
+    case 'ممتاز':
+      return 2;
+
+    case 'ممتاز جداً':
+      return 4;
+
+    default:
+      return 0;
+
+  }
+
+}
+
+
+/* =========================================================
+   حساب المعدل من 10
+========================================================= */
+
+function calculateAverage(
+  interactionRating,
+  responsibilityRatingValue
+){
+
+  const interaction=
+    interactionScore(
+      interactionRating
+    );
+
+  const responsibility=
+    responsibilityScore(
+      responsibilityRatingValue
+    );
+
+  return(
+    interaction+
+    responsibility
+  );
+
+}
+
+
+/* =========================================================
+   التقييم النهائي للمعدل
+========================================================= */
+
+function getFinalRatingFromAverage(average){
+
+  if(average>=9)
+    return 'ممتاز جداً';
+
+  if(average>=7)
+    return 'ممتاز';
+
+  if(average>=4)
+    return 'جيد جداً';
+
+  return 'سيء';
+
+}
+
+
+/* =========================================================
+   الحصول على قيمة حقل رقمي
+========================================================= */
+
+function getNumericField(text,labels){
+
+  return num(
+    getFieldLine(
+      text,
+      labels
+    )
+  );
+
+}
+
+
+/* =========================================================
+   معالجة استبيان واحد
+========================================================= */
+
+function processSurvey(
+  survey,
+  responsibilityMap
+){
+
+  const memberId=
+    extractMentionId(
+      getFieldLine(
+        survey,
+        ['الايدي']
+      )
+    );
+
+  const changeName=
+    getNumericField(
+      survey,
+      ['تغيير الاسم']
+    );
+
+  const giveRoles=
+    getNumericField(
+      survey,
+      ['اعطاء الرتب']
+    );
+
+  const tickets=
+    calculateTickets(
+      changeName,
+      giveRoles
+    );
+
+  const totalPoints=
+    calculateInteractionPoints(
+      changeName,
+      giveRoles
+    );
+
+  const interactionRating=
+    getPointsRating(
+      totalPoints
+    );
+
+  const isManager=
+    surveyHasResponsibilityField(
+      survey
+    );
+
+  let responsibilityRatingValue='';
+
+  let average='';
+
+  let finalRating='';
+
+  if(isManager){
+
+    responsibilityRatingValue=
+      responsibilityMap[memberId] || '';
+
+    average=
+      calculateAverage(
+        interactionRating,
+        responsibilityRatingValue
+      );
+
+    finalRating=
+      getFinalRatingFromAverage(
+        average
+      );
+
+  }else{
+
+    responsibilityRatingValue='';
+    average='';
+    finalRating=
+      interactionRating;
+
+  }
+
+  if(
+    memberId &&
+    isNewMember(memberId)
+  ){
+
+    finalRating='جديد';
+
+  }
+
+  return{
+    memberId,
+    changeName,
+    giveRoles,
+    tickets,
+    totalPoints,
+    interactionRating,
+    responsibilityRatingValue,
+    average,
+    finalRating,
+    isManager
+  };
+
+}
+
+
+/* =========================================================
+   تحديد هل الاستبيان مسؤول أم عضو
+========================================================= */
+
+function surveyHasResponsibilityField(text){
+
+  const lines=
+    String(text || '')
+      .split(/\r?\n/);
+
+  for(const line of lines){
+
+    const n=
+      normalize(line);
+
+    if(
+      n.startsWith('تقيم المسؤوليات :') ||
+      n.startsWith('تقييم المسؤوليات :')
+    ){
+
+      return true;
+
+    }
+
+  }
+
+  return false;
+
+}
+
+
+/* =========================================================
+   استبدال قيمة الحقل مع إبقاء القيمة الأصلية
+========================================================= */
+
+function replaceCalculatedField(
+  text,
+  labels,
+  value,
+  keepOriginal
+){
+
+  const lines=
+    String(text || '')
+      .split(/\r?\n/);
+
+  for(let i=0;i<lines.length;i++){
+
+    const line=lines[i];
+
+    for(const label of labels){
+
+      const normalizedLine=
+        normalize(line);
+
+      const normalizedLabel=
+        normalize(label);
+
+      if(
+        normalizedLine.startsWith(
+          normalizedLabel
+        )
+      ){
+
+        const colonIndex=
+          line.indexOf(':');
+
+        if(colonIndex===-1)
+          continue;
+
+        const before=
+          line.slice(
+            0,
+            colonIndex+1
+          );
+
+        const original=
+          line
+            .slice(colonIndex+1)
+            .trim();
+
+        let newValue='';
+
+        if(keepOriginal){
+
+          if(original){
+
+            /*
+              حذف علامة = والقيمة المحسوبة القديمة
+              من نهاية القيمة الأصلية قبل إضافة
+              النتيجة الجديدة.
+
+              مثال:
+              15 =
+
+              تصبح:
+              15
+
+              ثم يتم إضافة:
+              = 45
+
+              والنتيجة النهائية:
+              15 = 45
+            */
+
+            const cleanOriginal=
+              original
+                .replace(
+                  /\s*=\s*-?\d+(?:[.,]\d+)?\s*$/,
+                  ''
+                )
+                .replace(
+                  /\s*=\s*$/,
+                  ''
+                )
+                .trim();
+
+            newValue=
+              cleanOriginal+
+              ' = '+
+              value;
+
+          }else{
+
+            newValue=
+              '= '+
+              value;
+
+          }
+
+        }else{
+
+          newValue=
+            value;
+
+        }
+
+        lines[i]=
+          before+
+          ' '+
+          newValue;
+
+        return lines.join('\n');
+
+      }
+
+    }
+
+  }
+
+  return text;
+
+}
+
+
+/* =========================================================
+   كتابة نتيجة الاستبيان الأساسي
+========================================================= */
+
+function writeSurveyResult(
+  survey,
+  data
+){
+
+  let output=
+    survey;
+
+  output=
+    replaceCalculatedField(
+      output,
+      ['تغيير الاسم'],
+      data.changeName*3,
+      true
+    );
+
+  output=
+    replaceCalculatedField(
+      output,
+      ['اعطاء الرتب'],
+      data.giveRoles*5,
+      true
+    );
+
+  output=
+    replaceCalculatedField(
+      output,
+      ['اجمالي التكتات','إجمالي التكتات'],
+      data.tickets,
+      false
+    );
+
+  output=
+    replaceCalculatedField(
+      output,
+      [
+        'اجمالي البوينتات',
+        'إجمالي البوينتات'
+      ],
+      data.totalPoints,
+      false
+    );
+
+  if(data.isManager){
+
+    output=
+      replaceCalculatedField(
+        output,
+        [
+          'تقيم المسؤوليات',
+          'تقييم المسؤوليات'
+        ],
+        data.responsibilityRatingValue,
+        false
+      );
+
+    output=
+      replaceCalculatedField(
+        output,
+        ['التقييم'],
+        data.interactionRating,
+        false
+      );
+
+    output=
+      replaceCalculatedField(
+        output,
+        ['المعدل'],
+        data.average,
+        false
+      );
+
+    output=
+      replaceCalculatedField(
+        output,
+        [
+          'التقييم النهائي',
+          'التقيم النهائي'
+        ],
+        data.finalRating,
+        false
+      );
+
+  }else{
+
+    output=
+      replaceCalculatedField(
+        output,
+        [
+          'التقييم النهائي',
+          'التقيم النهائي'
+        ],
+        data.finalRating,
+        false
+      );
+
+  }
+
+  return output;
+
+}
+
+
+/* =========================================================
+   سبب النقاط
+========================================================= */
+
+function buildReason(data){
+
+  const reasons=[];
+
+  reasons.push(
+    'تغيير الاسم: '+
+    data.changeName+
+    ' × 3 = '+
+    (data.changeName*3)+
+    ' نقطة'
+  );
+
+  reasons.push(
+    'اعطاء الرتب: '+
+    data.giveRoles+
+    ' × 5 = '+
+    (data.giveRoles*5)+
+    ' نقطة'
+  );
+
+  reasons.push(
+    'اجمالي التكتات: '+
+    data.tickets
+  );
+
+  reasons.push(
+    'اجمالي البوينتات: '+
+    data.totalPoints+
+    ' نقطة'
+  );
+
+  reasons.push(
+    'تقييم التفاعل: '+
+    data.interactionRating
+  );
+
+  if(data.isManager){
+
+    reasons.push(
+      'تقيم المسؤوليات: '+
+      (
+        data.responsibilityRatingValue ||
+        'غير موجود'
+      )
+    );
+
+    reasons.push(
+      'نقاط التفاعل: '+
+      interactionScore(
+        data.interactionRating
+      )+
+      ' / 6'
+    );
+
+    reasons.push(
+      'نقاط المسؤوليات: '+
+      responsibilityScore(
+        data.responsibilityRatingValue
+      )+
+      ' / 4'
+    );
+
+    reasons.push(
+      'المعدل: '+
+      data.average+
+      ' / 10'
+    );
+
+    reasons.push(
+      'التقييم النهائي: '+
+      data.finalRating
+    );
+
+  }else{
+
+    reasons.push(
+      'التقييم النهائي: '+
+      data.finalRating
+    );
+
+  }
+
+  return reasons.join(' | ');
+
+}
+
+
+/* =========================================================
+   إكمال جميع الاستبيانات
+========================================================= */
+
+function completeSurvey(){
+
+  const mainText=
+    document
+      .getElementById('mainSurveys')
+      .value;
+
+  if(!mainText.trim()){
+
+    document.getElementById('status3').textContent=
+      '⚠️ أدخل استبيانًا أساسيًا واحدًا على الأقل.';
+
+    document.getElementById('output').value='';
+
+    return;
+
+  }
+
+  const responsibilityMap=
+    buildResponsibilityMap();
+
+  const surveys=
+    splitMainSurveys(
+      mainText
+    );
+
+  if(!surveys.length){
+
+    document.getElementById('status3').textContent=
+      '⚠️ لم يتم العثور على استبيانات تبدأ بالحقل "الايدي :".';
+
+    document.getElementById('output').value='';
+
+    return;
+
+  }
+
+  const results=[];
+  const reasons=[];
+
+  let managersCount=0;
+  let membersCount=0;
+  let matchedCount=0;
+
+  surveys.forEach(
+    function(survey,index){
+
+      const data=
+        processSurvey(
+          survey,
+          responsibilityMap
+        );
+
+      if(data.isManager){
+
+        managersCount++;
+
+        if(
+          data.memberId &&
+          data.responsibilityRatingValue
+        ){
+
+          matchedCount++;
+
+        }
+
+      }else{
+
+        membersCount++;
+
+      }
+
+      const output=
+        writeSurveyResult(
+          survey,
+          data
+        );
+
+      results.push(output);
+
+      reasons.push(
+        '👤 الاستبيان '+(index+1)+
+        ': '+
+        buildReason(data)
+      );
+
+    }
+  );
+
+  document.getElementById('output').value=
+    results.join('\n\n');
+
+  document.getElementById('status3').textContent=
+    '✅ تم إكمال '+
+    results.length+
+    ' استبيان بنجاح.\n'+
+    '👥 الأعضاء: '+
+    membersCount+
+    '\n'+
+    '🛡️ المسؤولون: '+
+    managersCount+
+    '\n'+
+    '🔗 استبيانات المسؤوليات المتطابقة: '+
+    matchedCount;
+
+  document.getElementById('pointsReason').textContent=
+    reasons.join('\n\n');
+
+}
+
+
+/* =========================================================
+   تأثير النقر للأزرار
+========================================================= */
+
+document.addEventListener(
+  'click',
+  function(e){
+
+    const button=
+      e.target.closest('button');
+
+    if(!button)
+      return;
+
+    const rect=
+      button.getBoundingClientRect();
+
+    button.style.setProperty(
+      '--ripple-x',
+      (e.clientX-rect.left)+'px'
+    );
+
+    button.style.setProperty(
+      '--ripple-y',
+      (e.clientY-rect.top)+'px'
+    );
+
+    button.classList.remove('ripple');
+
+    void button.offsetWidth;
+
+    button.classList.add('ripple');
+
+    setTimeout(
+      function(){
+
+        button.classList.remove('ripple');
+
+      },
+      600
+    );
+
+  }
+);
+
+</script>
+
+</body>
+</html>
