@@ -120,11 +120,6 @@ h1{
   text-align:center;
 }
 
-.new-members-card{
-  width:100%;
-  margin-bottom:12px;
-}
-
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -337,16 +332,13 @@ button .emoji{
 }
 
 @media(max-width:850px){
-
   .grid{
     grid-template-columns:1fr;
     gap:10px;
   }
-
 }
 
 @media(max-width:600px){
-
   .wrap{
     width:min(100% - 24px,620px);
     padding-top:20px;
@@ -368,7 +360,6 @@ button .emoji{
   button{
     width:100%;
   }
-
 }
 </style>
 </head>
@@ -388,51 +379,96 @@ button .emoji{
 
 
   <!-- =====================================================
-       الأعضاء الجدد
+       الصف الأول:
+       الأعضاء الجدد + خارج الخدمة الإدارية
   ====================================================== -->
 
-  <div class="card new-members-card">
+  <div class="grid">
 
-    <label>الأعضاء الجدد</label>
+    <!-- الأعضاء الجدد -->
+    <div class="card">
 
-    <textarea
-      id="newMembers"
-      placeholder="ضع منشنات الأعضاء الجدد هنا...
+      <label>الأعضاء الجدد</label>
+
+      <textarea
+        id="newMembers"
+        placeholder="ضع منشنات الأعضاء الجدد هنا...
 مثال:
 <@123456789>
 <@987654321>"
-    ></textarea>
+      ></textarea>
 
-    <div class="buttons">
+      <div class="buttons">
 
-      <button
-        class="paste"
-        onclick="pasteInto('newMembers','statusNew')"
-      >
-        <span class="emoji">📋</span>
-        لصق المنشنات هنا
-      </button>
+        <button
+          class="paste"
+          onclick="pasteInto('newMembers','statusNew')"
+        >
+          <span class="emoji">📋</span>
+          لصق المنشنات هنا
+        </button>
 
-      <button
-        class="clear"
-        onclick="clearOne('newMembers')"
-      >
-        مسح
-      </button>
+        <button
+          class="clear"
+          onclick="clearOne('newMembers')"
+        >
+          مسح
+        </button>
+
+      </div>
+
+      <div id="statusNew" class="status"></div>
 
     </div>
 
-    <div id="statusNew" class="status"></div>
+
+    <!-- خارج الخدمة الإدارية -->
+    <div class="card">
+
+      <label>خارج الخدمة الإدارية</label>
+
+      <textarea
+        id="outOfService"
+        placeholder="ضع منشنات الأشخاص خارج الخدمة الإدارية هنا...
+مثال:
+<@123456789>
+<@987654321>"
+      ></textarea>
+
+      <div class="buttons">
+
+        <button
+          class="paste"
+          onclick="pasteInto('outOfService','statusOutOfService')"
+        >
+          <span class="emoji">📋</span>
+          لصق المنشنات هنا
+        </button>
+
+        <button
+          class="clear"
+          onclick="clearOne('outOfService')"
+        >
+          مسح
+        </button>
+
+      </div>
+
+      <div id="statusOutOfService" class="status"></div>
+
+    </div>
 
   </div>
 
 
   <!-- =====================================================
+       الصف الثاني:
        استبيانات الأعضاء والمسؤولين + تقييم المسؤوليات
   ====================================================== -->
 
-  <div class="grid">
+  <div class="grid" style="margin-top:12px;">
 
+    <!-- استبيانات الأعضاء والمسؤولين -->
     <div class="card">
 
       <label>استبيانات الأعضاء والمسؤولين</label>
@@ -462,7 +498,7 @@ button .emoji{
 تقيم المسؤوليات :
 التقييم :
 المعدل :
-الرتبة الادارية :
+الرتبة الادارية :advisor
 التقيم النهائي :"
       ></textarea>
 
@@ -490,6 +526,7 @@ button .emoji{
     </div>
 
 
+    <!-- استبيان تقييم المسؤوليات -->
     <div class="card">
 
       <label>استبيان تقييم المسؤوليات</label>
@@ -502,12 +539,10 @@ button .emoji{
 مثال:
 
 منشن الشخص : <@123456789>
-
-التقييم النهائي : ممتاز
+التقييم النهائي : ممتاز جداً
 
 
 منشن الشخص : <@987654321>
-
 التقييم النهائي : جيد جداً"
       ></textarea>
 
@@ -652,11 +687,13 @@ function clearOne(id){
 function clearAll(){
 
   document.getElementById('newMembers').value='';
+  document.getElementById('outOfService').value='';
   document.getElementById('responsibilitySurveys').value='';
   document.getElementById('mainSurveys').value='';
   document.getElementById('output').value='';
 
   document.getElementById('statusNew').textContent='';
+  document.getElementById('statusOutOfService').textContent='';
   document.getElementById('statusResponsibilities').textContent='';
   document.getElementById('statusMain').textContent='';
   document.getElementById('status3').textContent='';
@@ -1117,7 +1154,7 @@ function normalizeRating(value){
 
 
 /* =========================================================
-   التأكد هل العضو موجود في قائمة الأعضاء الجدد
+   الأعضاء الجدد
 ========================================================= */
 
 function isNewMember(memberId){
@@ -1125,6 +1162,25 @@ function isNewMember(memberId){
   const text=
     document
       .getElementById('newMembers')
+      .value;
+
+  const ids=
+    getMentionIds(text);
+
+  return ids.includes(memberId);
+
+}
+
+
+/* =========================================================
+   خارج الخدمة الإدارية
+========================================================= */
+
+function isOutOfService(memberId){
+
+  const text=
+    document
+      .getElementById('outOfService')
       .value;
 
   const ids=
@@ -1390,6 +1446,12 @@ function processSurvey(
 
   }
 
+
+  /*
+    الأعضاء الجدد:
+    يصبح التقييم النهائي = جديد.
+  */
+
   if(
     memberId &&
     isNewMember(memberId)
@@ -1398,6 +1460,22 @@ function processSurvey(
     finalRating='جديد';
 
   }
+
+
+  /*
+    خارج الخدمة الإدارية:
+    يصبح التقييم النهائي منشن الرتبة.
+  */
+
+  if(
+    memberId &&
+    isOutOfService(memberId)
+  ){
+
+    finalRating='<@&1135000856043995233>';
+
+  }
+
 
   return{
     memberId,
@@ -1447,7 +1525,8 @@ function surveyHasResponsibilityField(text){
 
 
 /* =========================================================
-   استبدال قيمة الحقل مع إبقاء القيمة الأصلية
+   استبدال قيمة الحقل
+   مع إزالة علامات = القديمة قبل إضافة النتيجة
 ========================================================= */
 
 function replaceCalculatedField(
@@ -1500,37 +1579,34 @@ function replaceCalculatedField(
 
         if(keepOriginal){
 
-          if(original){
+          /*
+            تنظيف القيمة الأصلية من جميع علامات =
+            والقيمة المحسوبة السابقة.
+          */
 
-            /*
-              حذف علامة = والقيمة المحسوبة القديمة
-              من نهاية القيمة الأصلية قبل إضافة
-              النتيجة الجديدة.
+          const cleanOriginal=
+            original
+              .replace(
+                /(?:\s*=\s*)+/g,
+                ' '
+              )
+              .replace(
+                /\s+/g,
+                ' '
+              )
+              .trim();
 
-              مثال:
-              15 =
+          /*
+            إذا كانت القيمة الأصلية موجودة:
+            القيمة الأصلية = الناتج
 
-              تصبح:
-              15
+            مثال:
+            15 = = 45
+            تصبح:
+            15 = 45
+          */
 
-              ثم يتم إضافة:
-              = 45
-
-              والنتيجة النهائية:
-              15 = 45
-            */
-
-            const cleanOriginal=
-              original
-                .replace(
-                  /\s*=\s*-?\d+(?:[.,]\d+)?\s*$/,
-                  ''
-                )
-                .replace(
-                  /\s*=\s*$/,
-                  ''
-                )
-                .trim();
+          if(cleanOriginal){
 
             newValue=
               cleanOriginal+
@@ -1582,6 +1658,12 @@ function writeSurveyResult(
   let output=
     survey;
 
+
+  /*
+    تغيير الاسم:
+    القيمة الأصلية = الناتج × 3
+  */
+
   output=
     replaceCalculatedField(
       output,
@@ -1589,6 +1671,12 @@ function writeSurveyResult(
       data.changeName*3,
       true
     );
+
+
+  /*
+    إعطاء الرتب:
+    القيمة الأصلية = الناتج × 5
+  */
 
   output=
     replaceCalculatedField(
@@ -1598,6 +1686,11 @@ function writeSurveyResult(
       true
     );
 
+
+  /*
+    إجمالي التكتات.
+  */
+
   output=
     replaceCalculatedField(
       output,
@@ -1605,6 +1698,11 @@ function writeSurveyResult(
       data.tickets,
       false
     );
+
+
+  /*
+    إجمالي البوينتات.
+  */
 
   output=
     replaceCalculatedField(
@@ -1616,6 +1714,11 @@ function writeSurveyResult(
       data.totalPoints,
       false
     );
+
+
+  /*
+    تقييم المسؤوليات للمسؤول فقط.
+  */
 
   if(data.isManager){
 
@@ -1630,6 +1733,11 @@ function writeSurveyResult(
         false
       );
 
+
+    /*
+      تقييم التفاعل.
+    */
+
     output=
       replaceCalculatedField(
         output,
@@ -1638,6 +1746,11 @@ function writeSurveyResult(
         false
       );
 
+
+    /*
+      المعدل.
+    */
+
     output=
       replaceCalculatedField(
         output,
@@ -1645,6 +1758,11 @@ function writeSurveyResult(
         data.average,
         false
       );
+
+
+    /*
+      التقييم النهائي للمسؤول.
+    */
 
     output=
       replaceCalculatedField(
@@ -1658,6 +1776,13 @@ function writeSurveyResult(
       );
 
   }else{
+
+    /*
+      العضو:
+      التقييم النهائي = تقييم البوينتات
+      أو جديد
+      أو منشن خارج الخدمة.
+    */
 
     output=
       replaceCalculatedField(
@@ -1790,13 +1915,25 @@ function completeSurvey(){
 
   }
 
+
+  /*
+    بناء خريطة المسؤوليات:
+    ID => التقييم النهائي
+  */
+
   const responsibilityMap=
     buildResponsibilityMap();
+
+
+  /*
+    تقسيم جميع الاستبيانات الأساسية.
+  */
 
   const surveys=
     splitMainSurveys(
       mainText
     );
+
 
   if(!surveys.length){
 
@@ -1809,12 +1946,18 @@ function completeSurvey(){
 
   }
 
+
   const results=[];
   const reasons=[];
 
   let managersCount=0;
   let membersCount=0;
   let matchedCount=0;
+
+
+  /*
+    معالجة كل استبيان بشكل مستقل.
+  */
 
   surveys.forEach(
     function(survey,index){
@@ -1824,6 +1967,7 @@ function completeSurvey(){
           survey,
           responsibilityMap
         );
+
 
       if(data.isManager){
 
@@ -1844,13 +1988,16 @@ function completeSurvey(){
 
       }
 
+
       const output=
         writeSurveyResult(
           survey,
           data
         );
 
+
       results.push(output);
+
 
       reasons.push(
         '👤 الاستبيان '+(index+1)+
@@ -1861,8 +2008,14 @@ function completeSurvey(){
     }
   );
 
+
+  /*
+    عرض النتيجة.
+  */
+
   document.getElementById('output').value=
     results.join('\n\n');
+
 
   document.getElementById('status3').textContent=
     '✅ تم إكمال '+
@@ -1876,6 +2029,7 @@ function completeSurvey(){
     '\n'+
     '🔗 استبيانات المسؤوليات المتطابقة: '+
     matchedCount;
+
 
   document.getElementById('pointsReason').textContent=
     reasons.join('\n\n');
